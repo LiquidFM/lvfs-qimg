@@ -17,27 +17,25 @@
  * along with lvfs-qimg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lvfs_qimg_Plugin.h"
-#include "lvfs_qimg_Editor.h"
+#ifndef LVFS_QIMG_EDITOR_H_
+#define LVFS_QIMG_EDITOR_H_
+
+#include <lvfs-core/IEditor>
 
 
 namespace LVFS {
 namespace QImg {
 
-Plugin::Plugin()
-{}
-
-Plugin::~Plugin()
-{}
-
-Interface::Holder Plugin::open(const Interface::Holder &file) const
+class PLATFORM_MAKE_PRIVATE Editor : public ExtendsBy<Core::IEditor>
 {
-    return Interface::Holder(new (std::nothrow) Editor(file));
-}
+public:
+    Editor(const Interface::Holder &file);
+    virtual ~Editor();
 
-const Error &Plugin::lastError() const
-{
-    return m_error;
-}
+public: /* Core::IEditor */
+    virtual void view(QWidget *parent);
+};
 
 }}
+
+#endif /* LVFS_QIMG_EDITOR_H_ */

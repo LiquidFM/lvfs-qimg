@@ -7,14 +7,17 @@ project_cxx_library_header_default ()
 list (APPEND ${PROJECT_NAME}_LIBS brolly)
 list (APPEND ${PROJECT_NAME}_LIBS efc)
 list (APPEND ${PROJECT_NAME}_LIBS lvfs)
-list (APPEND ${PROJECT_NAME}_LIBS unrar)
+list (APPEND ${PROJECT_NAME}_LIBS lvfs-core)
 
-find_package (LibArchive REQUIRED)
-include_directories (${LIBARCHIVE_INCLUDE_DIR})
-list (APPEND ${PROJECT_NAME}_LIBS ${LIBARCHIVE_LIBRARY})
+find_package (Qt4 4.7.1 COMPONENTS QtCore QtGui REQUIRED)
+include (${QT_USE_FILE})
+list (APPEND ${PROJECT_NAME}_LIBS ${QT_LIBRARIES})
+add_definitions (${QT_DEFINITIONS} -DQT_NO_CAST_FROM_ASCII)
 
 # Sources
 add_subdirectory (src)
+QT4_WRAP_CPP (${PROJECT_NAME}_MOC_SOURCES ${${PROJECT_NAME}_HEADERS} OPTIONS "-nw")
+list (APPEND ${PROJECT_NAME}_SOURCES ${${PROJECT_NAME}_MOC_SOURCES})
 
 # Target - lvfs-qimg
 add_library (lvfs-qimg SHARED ${${PROJECT_NAME}_SOURCES})
