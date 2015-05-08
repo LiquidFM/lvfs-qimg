@@ -39,7 +39,7 @@ void Editor::view(QWidget *parent)
     Interface::Holder fp = original()->as<IEntry>()->open();
 
     if (fp.isValid())
-        if (IProperties *prop = fp->as<IProperties>())
+        if (IProperties *prop = original()->as<IProperties>())
         {
             size_t len = prop->size();
             uchar *buffer = new (std::nothrow) uchar[len];
