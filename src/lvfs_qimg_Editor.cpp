@@ -46,7 +46,7 @@ void Editor::view(QWidget *parent)
 
             if (LIKELY(buffer != NULL))
             {
-                if (fp->as<IFile>()->read(buffer, len) == len)
+                if (fp->as<IStream>()->read(buffer, len) == len)
                 {
                     QPixmap map;
 
