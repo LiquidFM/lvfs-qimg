@@ -1,18 +1,16 @@
 project (lvfs-qimg)
 
 # Project header
-project_library_header_default ()
+project_header_default ("POSITION_INDEPENDENT_CODE:YES")
 
 # 3rdparty
-list (APPEND ${PROJECT_NAME}_LIBS brolly)
-list (APPEND ${PROJECT_NAME}_LIBS efc)
-list (APPEND ${PROJECT_NAME}_LIBS lvfs)
-list (APPEND ${PROJECT_NAME}_LIBS lvfs-core)
+find_package (Lvfs-Core REQUIRED)
+include_directories (${LVFS_CORE_INCLUDE})
 
-find_package (Qt4 4.7.1 COMPONENTS QtCore QtGui REQUIRED)
-include (${QT_USE_FILE})
+list (APPEND ${PROJECT_NAME}_LIBS ${EFC_LIB})
+list (APPEND ${PROJECT_NAME}_LIBS ${LVFS_LIB})
 list (APPEND ${PROJECT_NAME}_LIBS ${QT_LIBRARIES})
-add_definitions (${QT_DEFINITIONS} -DQT_NO_CAST_FROM_ASCII)
+list (APPEND ${PROJECT_NAME}_LIBS ${LVFS_CORE_LIB})
 
 # Sources
 add_subdirectory (src)
@@ -23,11 +21,8 @@ list (APPEND ${PROJECT_NAME}_SOURCES ${${PROJECT_NAME}_MOC_SOURCES})
 add_library (lvfs-qimg SHARED ${${PROJECT_NAME}_SOURCES})
 target_link_libraries (lvfs-qimg ${${PROJECT_NAME}_LIBS})
 
-# Version
-build_version_file (lvfs-qimg 0.0.1)
-
 # Documentation
-add_documentation ("LVFS-QImg" 0.0.1 "LVFS Plugin for viewing image files")
+add_documentation ("LVFS-QImg" 0.0.1 "LVFS Plugin to view image files")
 
 # Install rules
 install_target (lvfs-qimg)

@@ -1,7 +1,7 @@
 /**
  * This file is part of lvfs-qimg.
  *
- * Copyright (C) 2011-2015 Dmitriy Vilkov, <dav.daemon@gmail.com>
+ * Copyright (C) 2011-2016 Dmitriy Vilkov, <dav.daemon@gmail.com>
  *
  * lvfs-qimg is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 #include "lvfs_qimg_Package.h"
 #include "lvfs_qimg_Plugin.h"
 
+#include <lvfs/plugins/Package>
+
 
 namespace LVFS {
 namespace QImg {
@@ -35,7 +37,7 @@ const char *Package::name() const
     return "QImg";
 }
 
-Package::Settings *Package::settings() const
+Settings::Scope *Package::settings() const
 {
     return NULL;
 }
@@ -78,4 +80,4 @@ const Package::Plugin **Package::protocolPlugins() const
 }}
 
 
-DECLARE_PLUGIN(::LVFS::QImg::Package)
+DECLARE_PLUGINS_PACKAGE(::LVFS::QImg::Package)
